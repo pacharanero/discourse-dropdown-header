@@ -9,3 +9,35 @@
     display: none;
   }
 }
+
+@if $links_position == "split" {
+  // "Split" lays the two link groups either side of the centred site logo.
+  // The component renders inside a wrapper element containing the <nav>;
+  // dissolving both with display:contents promotes the two <ul> groups to be
+  // flex items of the logo wrapper, so they can be ordered around the logo.
+  // The wrapper is matched structurally (not by its runtime class) so no
+  // disallowed `.ember-view` selector is needed.
+  .home-logo-wrapper-outlet {
+    flex: 1;
+    justify-content: center;
+
+    > *:has(> .custom-header-links),
+    .custom-header-links {
+      display: contents;
+    }
+
+    > .title {
+      order: 2; // the centred site logo
+    }
+
+    .top-level-links {
+      &:first-of-type {
+        order: 1; // links before the logo
+      }
+
+      &:last-of-type {
+        order: 3; // links after the logo
+      }
+    }
+  }
+}

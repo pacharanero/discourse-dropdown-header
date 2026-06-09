@@ -30,6 +30,22 @@ export default class CustomHeaderLinks extends Component {
     return JSON.parse(settings.header_links);
   }
 
+  // In "split" mode the links are divided into two groups so they can sit
+  // either side of the centred site logo. Every other mode (and mobile, which
+  // keeps the single dropdown menu) renders one group.
+  get linkGroups() {
+    const links = this.headerLinks;
+
+    if (settings.links_position !== "split" || this.site.mobileView) {
+      return [links];
+    }
+
+    // Odd counts put the extra link in the right-hand group, matching the
+    // common layout where trailing items (Shop, Sign in, ...) sit on the right.
+    const midpoint = Math.floor(links.length / 2);
+    return [links.slice(0, midpoint), links.slice(midpoint)];
+  }
+
   <template>
     <nav
       class={{concatClass
@@ -48,24 +64,26 @@ export default class CustomHeaderLinks extends Component {
       {{/if}}
 
       {{#if this.showLinks}}
-        <ul
-          class="top-level-links"
-          {{(if
-            this.site.mobileView
-            (modifier
-              closeOnClickOutside
-              this.toggleHeaderLinks
-              (hash target=this.element)
-            )
-          )}}
-        >
-          {{#each this.headerLinks as |item|}}
-            <CustomHeaderLink
-              @item={{item}}
-              @toggleHeaderLinks={{this.toggleHeaderLinks}}
-            />
-          {{/each}}
-        </ul>
+        {{#each this.linkGroups as |group|}}
+          <ul
+            class="top-level-links"
+            {{(if
+              this.site.mobileView
+              (modifier
+                closeOnClickOutside
+                this.toggleHeaderLinks
+                (hash target=this.element)
+              )
+            )}}
+          >
+            {{#each group as |item|}}
+              <CustomHeaderLink
+                @item={{item}}
+                @toggleHeaderLinks={{this.toggleHeaderLinks}}
+              />
+            {{/each}}
+          </ul>
+        {{/each}}
       {{/if}}
     </nav>
   </template>

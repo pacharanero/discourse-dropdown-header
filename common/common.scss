@@ -1,7 +1,7 @@
 @import "mixins";
 @import "buttons";
 
-@if $links_position == "left" {
+@if $links_position == "left" or $links_position == "split" {
   .home-logo-wrapper-outlet {
     display: flex;
     align-items: center;

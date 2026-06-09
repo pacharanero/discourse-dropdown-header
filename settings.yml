@@ -106,8 +106,9 @@ links_position:
   choices:
     - right
     - left
+    - split
   description:
-    en: "Position of the links on the header. (Auto hidden on scroll when position is left)"
+    en: "Position of the links on the header: 'right', 'left', or 'split' (links divided either side of a centred logo, desktop only). (Auto hidden on scroll when position is left)"
 show_caret_icons:
   default: true
   type: bool
