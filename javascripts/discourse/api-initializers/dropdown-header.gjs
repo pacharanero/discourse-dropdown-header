@@ -2,6 +2,10 @@ import { apiInitializer } from "discourse/lib/api";
 import CustomHeaderLinks from "../components/custom-header-links";
 
 export default apiInitializer("1.29.0", (api) => {
+  if (settings.logo_url) {
+    api.registerHomeLogoHrefCallback(() => settings.logo_url);
+  }
+
   if (!settings.header_links) {
     return;
   }

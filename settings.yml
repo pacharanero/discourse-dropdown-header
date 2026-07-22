@@ -149,6 +149,11 @@ dropdown_item_hover_background_color:
   type: string
   description:
     en: "Background color of dropdown links when hovered over. Note: it is recommended to use a <a target='_blank' href='https://github.com/discourse/discourse/blob/main/app/assets/stylesheets/color_definitions.scss'>color variable</a> so dark mode will be supported."
+logo_url:
+  default: ""
+  type: string
+  description:
+    en: "Override the home-logo link destination (e.g. https://example.com). Leave blank for the default forum home."
 svg_icons:
   type: "list"
   list_type: "compact"
